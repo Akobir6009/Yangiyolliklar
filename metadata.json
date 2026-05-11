@@ -1,0 +1,16 @@
+{
+  "name": "YANGIYO'LLIKLAR - Yangiyul News & Lifestyle",
+  "description": "Yangiyulning eng so'nggi yangiliklari, xizmatlar mundarijasi, Reels va ko'ngilochar bo'limlarini o'z ichiga olgan mahalliy ommaviy axborot vositasi.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "news",
+    "directory",
+    "reels",
+    "polls",
+    "donations"
+  ]
+}

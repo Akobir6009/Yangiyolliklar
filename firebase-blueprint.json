@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "NewsPost": {
+      "title": "News Post",
+      "description": "Local news article",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "views": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "translations": { "type": "object" },
+        "telegramId": { "type": "string" }
+      },
+      "required": ["title", "content", "createdAt"]
+    },
+    "Reel": {
+      "title": "Short Video",
+      "description": "Short social media video",
+      "type": "object",
+      "properties": {
+        "videoUrl": { "type": "string" },
+        "title": { "type": "string" },
+        "views": { "type": "integer" },
+        "likes": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["videoUrl", "createdAt"]
+    },
+    "Business": {
+      "title": "Business Directory Listing",
+      "description": "Information about a local business or service",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "workingHours": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "rating": { "type": "number" }
+      },
+      "required": ["name", "category"]
+    },
+    "Poll": {
+      "title": "Community Poll",
+      "description": "Public survey for users",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string" },
+        "options": { "type": "array" },
+        "totalVotes": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["question", "options", "createdAt"]
+    },
+    "Ad": {
+      "title": "Advertisement",
+      "description": "Local ad on the board",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "contact": { "type": "string" },
+        "expiryDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "expiryDate"]
+    }
+  },
+  "firestore": {
+    "/news": {
+      "schema": "NewsPost",
+      "description": "All news articles"
+    },
+    "/reels": {
+      "schema": "Reel",
+      "description": "Short video content"
+    },
+    "/directory": {
+      "schema": "Business",
+      "description": "Local business listings"
+    },
+    "/polls": {
+      "schema": "Poll",
+      "description": "Active community polls"
+    },
+    "/ads": {
+      "schema": "Ad",
+      "description": "Local ads and announcements"
+    },
+    "/news/{postId}/comments": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string" },
+          "userName": { "type": "string" },
+          "text": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "description": "Comments for a specific news post"
+    }
+  }
+}

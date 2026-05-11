@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    match /news/{postId} {
+      allow read: if true;
+      allow write: if false; // Assuming news is populated from server/admin
+
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+        allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      }
+    }
+
+    match /reels/{reelId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /directory/{businessId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /polls/{pollId} {
+      allow read: if true;
+      allow update: if true; // Simple voting: allow incrementing votes (could be hardened)
+    }
+
+    match /ads/{adId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+    }
+    
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+    }
+  }
+}
